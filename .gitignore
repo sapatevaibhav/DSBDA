@@ -2,5 +2,8 @@ stories
 6
 info.md
 preq.py
-*.ipynb
-*.csv
+.cs
+*.pdf
+*.png
+project
+.ipynb_checkpoints
