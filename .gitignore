@@ -7,3 +7,7 @@ preq.py
 *.png
 project
 .ipynb_checkpoints
+Jupyter
+old
+*.zip
+*csv

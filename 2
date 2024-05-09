@@ -1,0 +1,23 @@
+import pandas as pd
+
+df = pd.read_csv('facebook_dataset.csv', sep=';')
+
+subset1 = df.iloc[:100]
+subset2 = df[df['Page total likes'] > 10000]
+subset3 = df[df['Type'] == 'Photo']
+
+subset1.head()
+
+subset2.head()
+
+subset3.head()
+
+dummy_data = {'Page Likes': [20000, 30000, 15000, 25000],
+              'Post Shares': [500, 700, 400, 600]}
+dummy_df = pd.DataFrame(dummy_data)
+merged_df = pd.concat([df, dummy_df], axis=1)
+
+merged_df.head()
+
+sorted_df = df.sort_values(by='Lifetime Post Total Reach', ascending=False)
+sorted_df.head()

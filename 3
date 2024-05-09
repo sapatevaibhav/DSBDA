@@ -1,0 +1,28 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split 
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score 
+
+heart_df = pd.read_csv('heart.csv')
+air_quality_df = pd.read_csv('air_quality.csv', sep=';')
+
+# Data transformation
+heart_df.loc[heart_df['ca'] == 4, 'ca'] = pd.NA
+heart_df = heart_df.fillna(heart_df.median())
+
+# Error correction
+air_quality_df.dropna(inplace=True)
+
+# Data transformation
+air_quality_df['Date'] = pd.to_datetime(air_quality_df['Date'], format='%d/%m/%Y')
+air_quality_df.replace(to_replace=',', value='.', regex=True, inplace=True)
+air_quality_df.drop_duplicates(inplace=True)
+
+# Data model building
+X_train_heart, X_test_heart, y_train_heart, y_test_heart = train_test_split(heart_df.iloc[:, :-1], heart_df.iloc[:, -1], test_size=0.3, random_state=0)
+gnb_heart = GaussianNB()
+gnb_heart.fit(X_train_heart, y_train_heart)
+y_pred_heart = gnb_heart.predict(X_test_heart)
+accuracy_heart = accuracy_score(y_test_heart, y_pred_heart)
+print('Model accuracy score: {0:0.4f}'.format(accuracy_heart))
+

@@ -1,0 +1,69 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load Heart Disease dataset
+heart_df = pd.read_csv('heart.csv')
+
+
+# Histogram of age
+plt.subplot(2, 2, 1)
+plt.hist(heart_df['age'], bins=10, edgecolor='k')
+plt.xlabel('Age')
+plt.ylabel('Frequency')
+plt.title('Age Distribution')
+
+# Bar plot of sex
+plt.subplot(2, 2, 2)
+sex_counts = heart_df['sex'].value_counts()
+plt.bar(sex_counts.index, sex_counts.values)
+plt.xlabel('Sex (0 = Female, 1 = Male)')
+plt.ylabel('Count')
+plt.title('Gender Distribution')
+
+# Scatter plot of age vs. cholesterol
+plt.subplot(2, 2, 3)
+plt.scatter(heart_df['age'], heart_df['chol'], alpha=0.5)
+plt.xlabel('Age')
+plt.ylabel('Cholesterol')
+plt.title('Age vs. Cholesterol')
+
+# Box plot of resting blood pressure by target
+plt.subplot(2, 2, 4)
+plt.boxplot([heart_df[heart_df['target'] == 0]['trestbps'], heart_df[heart_df['target'] == 1]['trestbps']], labels=['No Disease', 'Disease'])
+plt.xlabel('Target')
+plt.ylabel('Resting Blood Pressure')
+plt.title('Resting Blood Pressure by Target')
+
+# Load Air Quality dataset
+air_quality_df = pd.read_csv('AirQuality.csv', sep=';')
+
+# Scatter plot of NOx(GT) vs. NO2(GT)
+plt.subplot(2, 2, 1)
+plt.scatter(air_quality_df['NOx(GT)'], air_quality_df['NO2(GT)'], alpha=0.5)
+plt.xlabel('NOx(GT)')
+plt.ylabel('NO2(GT)')
+plt.title('NOx(GT) vs. NO2(GT)')
+
+# Scatter plot of NO2(GT) vs. PT08.S4(NO2)
+plt.subplot(2, 2, 2)
+plt.scatter(air_quality_df['NO2(GT)'], air_quality_df['PT08.S4(NO2)'], alpha=0.5)
+plt.xlabel('NO2(GT)')
+plt.ylabel('PT08.S4(NO2)')
+plt.title('NO2(GT) vs. PT08.S4(NO2)')
+
+# Scatter plot of PT08.S1(CO) vs. PT08.S2(NMHC)
+plt.subplot(2, 2, 3)
+plt.scatter(air_quality_df['PT08.S1(CO)'], air_quality_df['PT08.S2(NMHC)'], alpha=0.5)
+plt.xlabel('PT08.S1(CO)')
+plt.ylabel('PT08.S2(NMHC)')
+plt.title('PT08.S1(CO) vs. PT08.S2(NMHC)')
+
+
+plt.figure(figsize=(8, 6))
+sns.scatterplot(data=heart_df, x='age', y='chol', alpha=0.5)
+plt.xlabel('Age')
+plt.ylabel('Cholesterol')
+plt.title('Age vs. Cholesterol (Seaborn)')
+plt.show()
+

@@ -1,0 +1,29 @@
+import pandas as pd
+
+heart_df = pd.read_csv('heart.csv')
+air_quality_df = pd.read_csv('air_quality.csv', sep=';')
+
+air_quality_df
+
+heart_df
+
+# Data Cleaning
+air_quality_df.dropna(how='all', inplace=True)
+heart_df.dropna(how="any",inplace=True)
+
+# Integration
+DataSet1 = air_quality_df[['Date', 'Time', 'T', 'RH', 'AH']].iloc[:51].copy()
+print(DataSet1.head())
+
+print(air_quality_df.head())
+
+# Data Transformation
+heart_df['sex'] = heart_df['sex'].map({0: 'Female', 1: 'Male'})
+
+air_quality_df['Date'] = pd.to_datetime(air_quality_df['Date'], format='%d/%m/%Y')
+air_quality_df.replace(to_replace=',', value='.', regex=True, inplace=True)
+air_quality_df.drop_duplicates(inplace=True)
+
+print(heart_df.head())
+
+print(air_quality_df.head())

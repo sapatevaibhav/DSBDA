@@ -1,0 +1,16 @@
+import pandas as pd
+
+df = pd.read_csv('facebook_dataset.csv', sep=';')
+
+df.head()
+
+sorted_df = df.sort_values(by='Page total likes', ascending=False)
+sorted_df.head()
+
+transposed_df = df.transpose()
+transposed_df
+
+print(df.shape)
+
+reshaped_df = pd.melt(df, id_vars=['Type', 'Category'], var_name='Metric', value_name='Value')
+reshaped_df.head()
