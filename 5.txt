@@ -1,0 +1,35 @@
+import pandas as pd
+import swifter
+import matplotlib.pyplot as plt
+
+# Load the dataset
+df = pd.read_csv('forestfires.csv',sep=',')
+df
+
+# Define the map function
+def map_function(row):
+    # Calculate the product of 'temp' and 'wind' for each row
+    result = row['X'] * row['wind']
+    return result
+# Apply the map function to each row in parallel using swifter
+df['map_result'] = df.swifter.apply(map_function, axis=1)
+df
+
+# Perform the reduce operation
+reduce_result = df['map_result'].sum()
+# Print the reduce result
+reduce_result
+
+# Calculate descriptive statistics of numeric columns
+descriptive_stats=df.describe()
+descriptive_stats
+
+grouped_stats = df.groupby('month').agg({'area': ['sum', 'mean', 'max']})
+grouped_stats
+
+# Plot a bar chart of the number of fires per month
+df['month'].value_counts().plot(kind='bar')
+plt.xlabel('Month')
+plt.ylabel('Number of Fires')
+plt.title('Number of Fires per Month')
+plt.show()
